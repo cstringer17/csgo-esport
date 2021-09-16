@@ -7,7 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class CsgoEsportApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(CsgoEsportApplication.class, args);
+		System.out.println();
+		SpringApplication.run(CsgoEsportApplication.class, args)
+		;
 	}
 
 }
