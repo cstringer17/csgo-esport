@@ -32,6 +32,7 @@ public class Player {
     @Column(name = "username")
     private String username;
 
+
     public long getId() {
         return id;
     }
@@ -55,4 +56,6 @@ public class Player {
     public void setUsername(String username) {
         this.username = username;
     }
+
+
 }

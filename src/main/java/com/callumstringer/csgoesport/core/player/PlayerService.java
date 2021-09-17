@@ -30,8 +30,6 @@ public class PlayerService {
     public Player prepare(Player player, PlayerBaseReq playerBaseReq){
         player.setName(playerBaseReq.getName());
         player.setUsername(playerBaseReq.getUsername());
-
-
         return player;
     }
 }
