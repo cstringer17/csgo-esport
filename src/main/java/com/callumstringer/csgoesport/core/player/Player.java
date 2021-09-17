@@ -1,11 +1,13 @@
 package com.callumstringer.csgoesport.core.player;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Proxy;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "csgo_player")
+@Proxy(lazy = false)
 public class Player {
 
     @Id
