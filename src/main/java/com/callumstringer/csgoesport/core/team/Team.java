@@ -1,5 +1,6 @@
 package com.callumstringer.csgoesport.core.team;
 
+import com.callumstringer.csgoesport.core.tournament.Tournament;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Proxy;
 
@@ -31,6 +32,18 @@ public class Team {
 
     @Column(name = "players")
     private int players;
+
+    @ManyToOne
+    @JoinColumn(name = "tournament_id")
+    private Tournament tournament;
+
+    public Tournament getTournament() {
+        return tournament;
+    }
+
+    public void setTournament(Tournament tournament) {
+        this.tournament = tournament;
+    }
 
     public String getTeamname() {
         return teamname;

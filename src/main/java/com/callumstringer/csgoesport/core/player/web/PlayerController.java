@@ -5,6 +5,7 @@ import com.callumstringer.csgoesport.core.player.PlayerService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -37,7 +38,10 @@ public class PlayerController {
         return playerService.getPlayer(id);
     }
 
-    @PostMapping("/addTeam")
-    @ResponseBody
-    public Player addTeamToPLayer(@RequestBody PlayerTeamReq req){ return playerService.addTeamToPlayer(req);}
+    @PutMapping("/{id}")
+    public Player updatePlayer(@PathVariable(name = "id") Long id,
+                               @RequestBody @Valid PlayerBaseReq req){
+        Player player = playerService.getPlayer(id);
+        return playerService.update(player, req);
+    }
 }

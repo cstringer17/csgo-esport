@@ -1,12 +1,14 @@
 package com.callumstringer.csgoesport.core.player;
 
 import com.callumstringer.csgoesport.core.player.web.PlayerBaseReq;
-import com.callumstringer.csgoesport.core.player.web.PlayerTeamReq;
-import com.callumstringer.csgoesport.core.team.Team;
 import com.callumstringer.csgoesport.core.team.TeamRepo;
-import com.callumstringer.csgoesport.core.team.TeamService;
-import org.springframework.stereotype.Service;
 
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import javax.validation.Valid;
 import java.util.List;
 
 @Service
@@ -39,12 +41,10 @@ public class PlayerService {
         return player;
     }
 
-    public Player addTeamToPlayer(PlayerTeamReq req) {
-        Player player = playerRepo.getById(req.getPlayer());
-        Team team = teamRepo.getById(req.getTeam());
-        player.addTeam(team);
-        Player playerSave = playerRepo.save(player);
-        return playerSave;
 
+    public Player update(Player player, PlayerBaseReq req) {
+        Player newPlayer = this.prepare(player,req);
+        Player playerSave = playerRepo.save(newPlayer);
+        return playerSave;
     }
 }

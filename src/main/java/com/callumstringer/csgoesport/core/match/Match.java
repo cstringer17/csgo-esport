@@ -1,6 +1,8 @@
 package com.callumstringer.csgoesport.core.match;
 
+import com.callumstringer.csgoesport.core.stage.Stage;
 import com.callumstringer.csgoesport.core.team.Team;
+import com.callumstringer.csgoesport.core.tournament.Tournament;
 
 import javax.persistence.*;
 import java.util.List;
@@ -28,6 +30,30 @@ public class Match {
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE, CascadeType.REFRESH, CascadeType.DETACH})
     @JoinColumn(name = "winner_id")
     private Team winner;
+
+    @ManyToOne
+    @JoinColumn(name = "tournament_id")
+    private Tournament tournament;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "stage_id")
+    private Stage stage;
+
+    public Stage getStage() {
+        return stage;
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+
+    public Tournament getTournament() {
+        return tournament;
+    }
+
+    public void setTournament(Tournament tournament) {
+        this.tournament = tournament;
+    }
 
     public Team getWinner() {
         return winner;
