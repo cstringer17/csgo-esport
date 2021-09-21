@@ -32,17 +32,10 @@ public class Tournament {
     }
 
     public Tournament(){
-        int amountOfTeams = teams.size();
-        if ( amountOfTeams % 2 != 0 ){
-            generateMatches(amountOfTeams+1);
-        }else{
-            generateMatches(amountOfTeams);
-        }
-    }
-
-    private void generateMatches(int amountOfTeams){
 
     }
+
+
 
     public List<Team> getTeams() {
         return teams;
