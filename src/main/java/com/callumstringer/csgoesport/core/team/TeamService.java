@@ -1,6 +1,9 @@
 package com.callumstringer.csgoesport.core.team;
 
+import com.callumstringer.csgoesport.core.team.web.TeamBaseReq;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class TeamService {
@@ -11,4 +14,21 @@ public class TeamService {
     }
 
 
+    public Team getTeam(Long id) {
+        return teamRepo.getById(id);
+    }
+
+    public List<Team> getTeams() {return teamRepo.findAll();}
+
+    public Team create(TeamBaseReq req) {
+        Team team = new Team();
+        this.prepare(team, req);
+        Team teamSave = teamRepo.save(team);
+        return teamSave;
+    }
+
+    public Team prepare(Team team, TeamBaseReq teamBaseReq){
+        team.setTeamname(teamBaseReq.getTeamname());
+        return team;
+    }
 }

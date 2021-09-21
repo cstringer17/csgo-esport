@@ -16,12 +16,6 @@ public class PlayerController {
         this.playerService = playerService;
     }
 
-    @GetMapping("/test")
-    @ResponseBody
-    public String test(){
-        return "hello world";
-    }
-
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -43,5 +37,7 @@ public class PlayerController {
         return playerService.getPlayer(id);
     }
 
-
+    @PostMapping("/addTeam")
+    @ResponseBody
+    public Player addTeamToPLayer(@RequestBody PlayerTeamReq req){ return playerService.addTeamToPlayer(req);}
 }

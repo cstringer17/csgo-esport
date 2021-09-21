@@ -1,9 +1,14 @@
 package com.callumstringer.csgoesport.core.player;
 
+import com.callumstringer.csgoesport.core.team.Team;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Proxy;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "csgo_player")
@@ -32,6 +37,21 @@ public class Player {
     @Column(name = "username")
     private String username;
 
+    @NotEmpty
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @JoinTable(name = "csgo_player_team",
+            joinColumns = { @JoinColumn(name = "id_player") },
+            inverseJoinColumns = { @JoinColumn(name = "id_team") })
+    @JsonIgnore
+    private Set<Team> teams = new HashSet<>();
+
+    public Set<Team> getTeams() {
+        return teams;
+    }
+
+    public void setTeams(Set<Team> teams) {
+        this.teams = teams;
+    }
 
     public long getId() {
         return id;
@@ -55,6 +75,10 @@ public class Player {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public void addTeam(Team team){
+        this.teams.add(team);
     }
 
 
