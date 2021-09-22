@@ -18,16 +18,16 @@ jobs:
 
         # Use preinstalled PostgreSQL
     - name: Start PostgreSQL on Ubuntu
-        run: |
+      run: |
             sudo systemctl start postgresql.service
             pg_isready
 
     - name: Create additional user
-        run: |
+      run: |
             sudo -u postgres psql --command="CREATE USER csgo_esport PASSWORD 'Test1234'" --command="\du"
         # Change database name to meet your requirements
     - name: Create additional database
-        run: |
+      run: |
             sudo -u postgres createdb --owner=csgo_esport csgo_esport
             PGPASSWORD=Test1234 psql --username=csgo_esport --host=localhost --list timetable
 
