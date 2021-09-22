@@ -24,12 +24,19 @@ jobs:
 
     - name: Create additional user
         run: |
-            sudo -u postgres psql --command="CREATE USER csgo_esport PASSWORD 'Test1234'" --command="\du"
+            sudo -u postgres psql --command="CREATE ROLE csgo_esport WITH
+                                           LOGIN
+                                           NOSUPERUSER
+                                           INHERIT
+                                           CREATEDB
+                                           CREATEROLE
+                                           NOREPLICATION
+                                           PASSWORD 'Test1234';" --command="\du"
         # Change database name to meet your requirements
     - name: Create additional database
         run: |
             sudo -u postgres createdb --owner=csgo_esport csgo_esport
-            PGPASSWORD=Test1234 psql --username=csgo_esport --host=localhost --list timetable
+            PGPASSWORD=Test1234 psql --username=csgo_esport --host=localhost
 
 
     - name: Set up JDK 11
