@@ -23,7 +23,7 @@ jobs:
         postgresql user: 'csgo_esport'
         postgresql password: 'Test1234'
     - name: Check Postgres running
-        run: |
+      run:  | 
           sleep 1m
           psql -U csgo-esport -d Test1234 -h localhost -c "SELECT version()"
     - name: Set up JDK 11
