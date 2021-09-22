@@ -16,15 +16,22 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
 
-    - name: Setup PostgreSQL
-      uses: Harmon758/postgresql-action@v1.0.0
-      with:
-        postgresql db: 'csgo_esport'
-        postgresql user: 'csgo_esport'
-    - name: Check Postgres running
-      run:  | 
-          sleep 1m
-          psql -U csgo_esport -d csgo_sport -h localhost -c "SELECT version()"
+        # Use preinstalled PostgreSQL
+    - name: Start PostgreSQL on Ubuntu
+        run: |
+            sudo systemctl start postgresql.service
+            pg_isready
+
+    - name: Create additional user
+        run: |
+            sudo -u postgres psql --command="CREATE USER csgo_esport PASSWORD 'Test1234'" --command="\du"
+        # Change database name to meet your requirements
+    - name: Create additional database
+        run: |
+            sudo -u postgres createdb --owner=csgo_esport csgo_esport
+            PGPASSWORD=Test1234 psql --username=csgo_esport --host=localhost --list timetable
+
+
     - name: Set up JDK 11
       uses: actions/setup-java@v2
       with:
