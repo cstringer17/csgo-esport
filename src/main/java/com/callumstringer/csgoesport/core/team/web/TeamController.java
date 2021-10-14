@@ -8,6 +8,7 @@ import com.callumstringer.csgoesport.core.team.TeamService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -19,6 +20,7 @@ public class TeamController {
         this.teamService = teamService;
     }
 
+    //Create
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
@@ -26,6 +28,7 @@ public class TeamController {
         return teamService.create(req);
     }
 
+    //Read
     @GetMapping("")
     @ResponseBody
     public List<Team> getTeams(){
@@ -37,5 +40,26 @@ public class TeamController {
     public Team getTeam(@PathVariable Long id) {
         return teamService.getTeam(id);
     }
+
+    //Update
+    @PutMapping("/{id}")
+    public Team updateTeam(@PathVariable(name = "id") Long id,
+                           @RequestBody @Valid TeamBaseReq req){
+        Team team = teamService.getTeam(id);
+        return teamService.update(team,req);
+    }
+
+    //Delete
+    @DeleteMapping()
+    public String deletePlayer(@PathVariable(name = "id") Long id){
+        Team team = teamService.getTeam(id);
+        try{
+            teamService.delete(team);
+            return "Team has been successfully deleted";
+        }catch(Exception e ){
+            return e.toString();
+        }
+    }
+
 
 }

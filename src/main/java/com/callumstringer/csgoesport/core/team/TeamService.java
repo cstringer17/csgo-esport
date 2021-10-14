@@ -31,4 +31,14 @@ public class TeamService {
         team.setTeamname(teamBaseReq.getTeamname());
         return team;
     }
+
+    public Team update(Team team, TeamBaseReq req){
+        Team newTeam = this.prepare(team,req);
+        Team teamSave = teamRepo.save(newTeam);
+        return teamSave;
+    }
+
+    public void delete(Team team){
+        teamRepo.delete(team);
+    }
 }

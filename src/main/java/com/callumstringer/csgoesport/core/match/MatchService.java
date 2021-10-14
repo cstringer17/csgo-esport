@@ -2,9 +2,11 @@ package com.callumstringer.csgoesport.core.match;
 
 import com.callumstringer.csgoesport.core.match.web.MatchBaseReq;
 import com.callumstringer.csgoesport.core.team.TeamRepo;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class MatchService {
     private final MatchRepo matchRepo;
     private final TeamRepo teamRepo;
@@ -45,5 +47,15 @@ public class MatchService {
         match.setTScore(match.getTScore());
         match.setWinner(match.getWinner());
         return match;
+    }
+
+    public Match update(Match match, MatchBaseReq req){
+        Match newMatch = this.prepare(match,req);
+        Match matchSave = matchRepo.save(newMatch);
+        return matchSave;
+    }
+
+    public void delete(Match match){
+        matchRepo.delete(match);
     }
 }

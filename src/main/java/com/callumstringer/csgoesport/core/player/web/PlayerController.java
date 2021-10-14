@@ -18,6 +18,7 @@ public class PlayerController {
     }
 
 
+    //Create
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
@@ -25,7 +26,7 @@ public class PlayerController {
         return playerService.create(req);
     }
 
-
+    //Read
     @GetMapping("")
     @ResponseBody
     public List<Player> getPlayers(){
@@ -38,10 +39,25 @@ public class PlayerController {
         return playerService.getPlayer(id);
     }
 
+    //Update
     @PutMapping("/{id}")
     public Player updatePlayer(@PathVariable(name = "id") Long id,
                                @RequestBody @Valid PlayerBaseReq req){
         Player player = playerService.getPlayer(id);
         return playerService.update(player, req);
     }
+
+    //Delete
+    @DeleteMapping
+    public String deletePlayer(@PathVariable(name = "id") Long id){
+        Player player = playerService.getPlayer(id);
+        try {
+            playerService.delete(player);
+            return "Player has successfully deleted";
+        }catch(Exception e){
+            return e.toString();
+        }
+
+    }
+
 }

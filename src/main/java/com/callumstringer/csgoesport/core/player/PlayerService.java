@@ -47,4 +47,10 @@ public class PlayerService {
         Player playerSave = playerRepo.save(newPlayer);
         return playerSave;
     }
+
+    public void delete(Player player){
+        playerRepo.delete(player);
+    }
+
+
 }
