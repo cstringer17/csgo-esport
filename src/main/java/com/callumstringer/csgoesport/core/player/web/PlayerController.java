@@ -22,26 +22,26 @@ public class PlayerController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
-    public Player create(@RequestBody  PlayerBaseReq req) {
+    public PlayerView create(@RequestBody  PlayerBaseReq req) {
         return playerService.create(req);
     }
 
     //Read
     @GetMapping("")
     @ResponseBody
-    public List<Player> getPlayers(){
+    public List<PlayerView> getPlayers(){
         return playerService.getPlayers();
     }
 
     @GetMapping("/{id}")
     @ResponseBody
-    public Player getPlayer(@PathVariable Long id) {
-        return playerService.getPlayer(id);
+    public PlayerView getPlayer(@PathVariable Long id) {
+        return playerService.getPlayerView(id);
     }
 
     //Update
     @PutMapping("/{id}")
-    public Player updatePlayer(@PathVariable(name = "id") Long id,
+    public PlayerView updatePlayer(@PathVariable(name = "id") Long id,
                                @RequestBody @Valid PlayerBaseReq req){
         Player player = playerService.getPlayer(id);
         return playerService.update(player, req);

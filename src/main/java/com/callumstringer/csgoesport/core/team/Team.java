@@ -60,4 +60,12 @@ public class Team {
     public void setPlayers(int players) {
         this.players = players;
     }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 }
